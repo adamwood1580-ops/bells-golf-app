@@ -32,19 +32,17 @@ body {
 
 .hero-home {
     text-align: center;
-    margin-bottom: 22px;
-    padding: 28px 24px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.84);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(6px);
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    background: transparent;
+    box-shadow: none;
 }
 
 .home-logo {
-    width: 118px;
+    width: 180px;
     height: auto;
     display: block;
-    margin: 0 auto 12px;
+    margin: 0 auto 10px;
 }
 
 .hero-home h1 {
@@ -256,8 +254,7 @@ body {
     }
 
     .home-logo {
-        width: 78px;
-        margin-bottom: 8px;
+        width: 130px;
     }
 
     .hero-home h1 {
