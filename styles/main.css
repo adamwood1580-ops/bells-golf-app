@@ -76,12 +76,14 @@ body {
 
 .hero-home p {
     margin: 0;
-    font-size: clamp(1rem, 2.4vw, 1.45rem);
-    color: var(--muted);
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    text-shadow: 0 3px 12px rgba(0,0,0,.75);
 }
 
 .format-section {
-    margin-bottom: 26px;
+    margin-bottom: 14px;
 }
 
 .format-section h2 {
@@ -120,7 +122,7 @@ body {
     grid-template-columns: 82px 1fr 28px;
     align-items: center;
     gap: 18px;
-    min-height: 138px;
+    min-height: 120px;
     padding: 22px;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.94);
@@ -288,7 +290,7 @@ body {
 
     .menu-card {
         display: block;
-        min-height: 150px;
+        min-height: 118px;
         padding: 12px;
         border-radius: 16px;
         text-align: left;
