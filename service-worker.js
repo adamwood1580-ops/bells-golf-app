@@ -15,7 +15,7 @@ const FILES_TO_CACHE = [
     "./js/strokeplay.js",
     "./js/fourbbb.js",
 
-    "./assets/Bells-logo.png",
+    "./assets/Bells-logo.PNG",
     "./assets/course-bg.JPG"
 ];
 
