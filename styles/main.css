@@ -121,13 +121,7 @@ body {
 }
 
 .menu-card::before {
-    content: "";
-    position: absolute;
-    left: 108px;
-    top: 18px;
-    bottom: 18px;
-    width: 1px;
-    background: rgba(184, 154, 66, 0.85);
+   display: none;
 }
 
 .menu-card:hover {
@@ -282,9 +276,7 @@ body {
     }
 
     .menu-card::before {
-        left: 66px;
-        top: 14px;
-        bottom: 14px;
+        display: none;
     }
 
     .icon-badge {
