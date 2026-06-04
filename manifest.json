@@ -1,0 +1,22 @@
+{
+  "name": "Bells Golf App",
+  "short_name": "Bells Golf",
+  "description": "Digital golf scorecards for Bells Hotel & Country Club",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fbf8ee",
+  "theme_color": "#003f24",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/Bells-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/Bells-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
