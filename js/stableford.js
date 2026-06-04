@@ -1,34 +1,6 @@
 const STORAGE_KEY = "bells-stableford-round";
 
-const course = {
-    name: "Bells Hotel and Country Club",
-    tees: {
-        White: {
-            slope: 125,
-            rating: 68.3,
-            par: 69,
-            holes: [4,3,4,4,3,4,5,3,4,4,4,4,5,4,3,4,3,4],
-            si: [8,18,6,4,14,2,10,12,16,3,13,1,7,17,15,5,11,9],
-            yards: [377,134,393,399,157,362,518,174,316,385,335,359,546,288,147,381,203,369]
-        },
-        Yellow: {
-            slope: 123,
-            rating: 66.5,
-            par: 69,
-            holes: [4,3,4,4,3,4,5,3,4,4,4,4,5,4,3,4,3,4],
-            si: [8,18,6,4,14,2,10,12,16,3,13,1,7,17,15,5,11,9],
-            yards: [363,126,298,399,152,350,512,144,300,354,318,329,497,280,138,363,203,336]
-        },
-        Red: {
-            slope: 122,
-            rating: 70.3,
-            par: 71,
-            holes: [4,3,4,4,3,5,5,3,4,5,4,4,5,4,3,4,3,4],
-            si: [7,15,11,3,17,5,1,13,9,8,16,2,6,14,18,4,10,12],
-            yards: [363,131,303,347,127,358,455,140,292,317,281,299,479,250,138,371,198,369]
-        }
-    }
-};
+const course = BELLS_COURSE;
 
 const teeSelect = document.getElementById("teeSelect");
 const handicapIndexInput = document.getElementById("handicapIndex");
