@@ -19,10 +19,10 @@ body {
     background:
         linear-gradient(
             to bottom,
-            rgba(0, 28, 18, 0.78) 0%,
-            rgba(0, 40, 24, 0.52) 18%,
-            rgba(0, 40, 24, 0.22) 42%,
-            rgba(0, 40, 20, 0.42) 100%
+            rgba(0, 20, 12, 0.88) 0%,
+            rgba(0, 35, 20, 0.70) 20%,
+            rgba(0, 35, 20, 0.30) 45%,
+            rgba(0, 35, 20, 0.45) 100%
         ),
         url("../assets/course-bg.JPG");
     background-size: cover;
@@ -39,74 +39,50 @@ body {
 .hero-home {
     text-align: center;
     margin-bottom: 18px;
-    padding: 10px 12px;
+    padding: 8px 12px 4px;
     background: transparent;
     box-shadow: none;
 }
 
 .home-logo {
-    max-width: 245px;
-    width: 70%;
+    max-width: 270px;
+    width: 72%;
     height: auto;
     display: block;
     margin: 0 auto 8px;
     filter:
-        drop-shadow(0 3px 8px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7))
         contrast(1.08)
-        saturate(1.12);
+        saturate(1.1);
 }
 
-.hero-home h1 {
-    margin: 0;
-    font-size: clamp(2.2rem, 6vw, 4.2rem);
-    line-height: 1;
-    color: var(--green);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
+.hero-home h1,
 .title-rule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    margin: 18px auto 14px;
-    max-width: 430px;
-    color: var(--gold);
-}
-
-.title-rule span {
-    height: 1px;
-    flex: 1;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-
-.title-rule strong {
-    font-size: 1.1rem;
+    display: none;
 }
 
 .hero-home p {
     margin: 0;
     color: white;
-    font-size: 1rem;
+    font-size: 1.05rem;
     letter-spacing: 0.03em;
-    text-shadow: 0 3px 12px rgba(0,0,0,.75);
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
 }
 
 .format-section {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .format-section h2 {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin: 0 0 12px;
+    gap: 12px;
+    margin: 0 0 10px;
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: 1.15rem;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
 }
 
 .format-section h2::before,
@@ -124,22 +100,22 @@ body {
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    gap: 14px;
 }
 
 .menu-card {
     position: relative;
     display: grid;
-    grid-template-columns: 82px 1fr 28px;
+    grid-template-columns: 76px 1fr 24px;
     align-items: center;
-    gap: 18px;
-    min-height: 120px;
-    padding: 22px;
-    border-radius: 22px;
+    gap: 14px;
+    min-height: 116px;
+    padding: 18px;
+    border-radius: 20px;
     background: rgba(255, 255, 255, 0.94);
     color: inherit;
     text-decoration: none;
-    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -147,52 +123,52 @@ body {
 .menu-card::before {
     content: "";
     position: absolute;
-    left: 118px;
-    top: 28px;
-    bottom: 28px;
+    left: 108px;
+    top: 18px;
+    bottom: 18px;
     width: 1px;
-    background: linear-gradient(var(--gold), transparent);
+    background: rgba(184, 154, 66, 0.85);
 }
 
 .menu-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.34);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.36);
 }
 
 .icon-badge {
     display: grid;
     place-items: center;
-    width: 74px;
-    height: 74px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     background: var(--green);
     color: white;
-    font-size: 2rem;
+    font-size: 1.9rem;
     line-height: 1;
 }
 
 .icon-badge.muted {
-    background: #636363;
+    background: #5f5f5f;
 }
 
 .card-content h3 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: var(--green);
-    font-size: 1.55rem;
+    font-size: 1.4rem;
     line-height: 1;
 }
 
 .card-content p {
     margin: 0;
-    color: #333;
+    color: #222;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 1rem;
-    line-height: 1.35;
+    font-size: 0.94rem;
+    line-height: 1.28;
 }
 
 .chevron {
     color: var(--green);
-    font-size: 2.6rem;
+    font-size: 2.35rem;
     font-family: system-ui, sans-serif;
     line-height: 1;
 }
@@ -204,8 +180,8 @@ body {
 
 .soon-badge {
     position: absolute;
-    right: 18px;
-    bottom: 18px;
+    right: 14px;
+    bottom: 14px;
     border: 2px solid var(--gold);
     color: var(--gold);
     border-radius: 8px;
@@ -213,24 +189,25 @@ body {
     text-transform: uppercase;
     font-family: system-ui, sans-serif;
     font-weight: 800;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.04em;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .feature-bar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    margin-top: 28px;
+    margin-top: 22px;
     border-radius: 22px;
     overflow: hidden;
     background: rgba(0, 63, 36, 0.96);
     color: white;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.34);
 }
 
 .feature-bar div {
-    padding: 22px 18px;
+    padding: 20px 16px;
     text-align: center;
     border-right: 1px solid rgba(184, 154, 66, 0.55);
 }
@@ -245,54 +222,49 @@ body {
     color: var(--gold);
     text-transform: uppercase;
     font-family: system-ui, sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .feature-bar span {
     display: block;
     font-family: system-ui, sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.86rem;
+    line-height: 1.35;
 }
 
 @media (max-width: 760px) {
+    body {
+        background-attachment: scroll;
+    }
+
     .home-container {
         padding: 10px;
     }
 
     .hero-home {
-        padding: 16px 12px;
-        margin-bottom: 14px;
-        border-radius: 18px;
+        padding: 4px 8px 2px;
+        margin-bottom: 12px;
     }
 
     .home-logo {
-    max-width: 210px;
-    width: 72%;
-}
-
-    .hero-home h1 {
-        font-size: 1.75rem;
-        letter-spacing: 0.045em;
-    }
-
-    .title-rule {
-        margin: 10px auto 8px;
-        gap: 10px;
-        max-width: 240px;
+        max-width: 230px;
+        width: 76%;
+        margin-bottom: 6px;
     }
 
     .hero-home p {
-        font-size: 0.86rem;
+        font-size: 0.82rem;
+        line-height: 1.25;
     }
 
     .format-section {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .format-section h2 {
         font-size: 0.78rem;
         margin-bottom: 8px;
+        gap: 8px;
     }
 
     .menu-grid {
@@ -301,74 +273,65 @@ body {
     }
 
     .menu-card {
-        display: block;
-        min-height: 118px;
-        padding: 12px;
+        display: grid;
+        grid-template-columns: 46px 1fr 14px;
+        gap: 9px;
+        min-height: 112px;
+        padding: 11px;
         border-radius: 16px;
-        text-align: left;
     }
 
     .menu-card::before {
-        display: none;
+        left: 66px;
+        top: 14px;
+        bottom: 14px;
     }
 
     .icon-badge {
-        width: 46px;
-        height: 46px;
-        font-size: 1.3rem;
-        margin-bottom: 10px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
     }
 
     .card-content h3 {
-        font-size: 1.05rem;
-        margin-bottom: 6px;
-    }
-
-    .card-content p {
-        font-size: 0.72rem;
-        line-height: 1.22;
-    }
-
-    .chevron {
-        position: absolute;
-        right: 12px;
-        top: 12px;
-        font-size: 1.6rem;
-    }
-
-    .soon-badge {
-        right: 10px;
-        bottom: 10px;
-        font-size: 0.58rem;
-        padding: 3px 5px;
-    }
-
-    .feature-bar {
-        grid-template-columns: repeat(2, 1fr);
-        border-radius: 16px;
-        margin-top: 16px;
-    }
-
-    .feature-bar div {
-        padding: 12px 8px;
-        border-bottom: 1px solid rgba(184, 154, 66, 0.45);
-    }
-
-    .feature-bar div:nth-child(2) {
-        border-right: none;
-    }
-
-    .feature-bar div:nth-child(3),
-    .feature-bar div:nth-child(4) {
-        border-bottom: none;
-    }
-
-    .feature-bar strong {
-        font-size: 0.68rem;
+        font-size: 1rem;
         margin-bottom: 5px;
     }
 
+    .card-content p {
+        font-size: 0.68rem;
+        line-height: 1.2;
+    }
+
+    .chevron {
+        font-size: 1.45rem;
+    }
+
+    .soon-badge {
+        right: 8px;
+        bottom: 8px;
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        border-radius: 6px;
+    }
+
+    .feature-bar {
+        grid-template-columns: repeat(4, 1fr);
+        border-radius: 16px;
+        margin-top: 14px;
+    }
+
+    .feature-bar div {
+        padding: 10px 5px;
+    }
+
+    .feature-bar strong {
+        font-size: 0.58rem;
+        margin-bottom: 4px;
+    }
+
     .feature-bar span {
-        font-size: 0.66rem;
+        font-size: 0.55rem;
+        line-height: 1.25;
     }
 }
