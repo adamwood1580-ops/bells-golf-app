@@ -670,3 +670,17 @@ input {
         display: none;
     }
 }
+.home-btn {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 8px 14px;
+    background: var(--green);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.home-btn:hover {
+    background: var(--green-light);
+}
