@@ -28,6 +28,106 @@
 
             <section class="panel">
                 <div class="panel-title">Round Details</div>
+                
+                <section class="panel">
+    <div class="panel-title">Round Details</div>
+
+    <!-- Player Details -->
+
+    <div class="details-grid">
+
+        <div>
+            <label for="playerAName">Player A</label>
+            <input
+                id="playerAName"
+                type="text"
+                placeholder="Player A"
+            />
+        </div>
+
+        <div>
+            <label for="playerBName">Player B</label>
+            <input
+                id="playerBName"
+                type="text"
+                placeholder="Player B"
+            />
+        </div>
+
+        <div>
+            <label for="playerAIndex">A Handicap Index</label>
+            <input
+                id="playerAIndex"
+                type="number"
+                step="0.1"
+                placeholder="e.g. 12.4"
+            />
+        </div>
+
+        <div>
+            <label for="playerBIndex">B Handicap Index</label>
+            <input
+                id="playerBIndex"
+                type="number"
+                step="0.1"
+                placeholder="e.g. 18.1"
+            />
+        </div>
+
+        <div>
+            <label for="teeSelect">Tee</label>
+            <select id="teeSelect">
+                <option value="">Select Tee</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="scoringMode">Scoring Mode</label>
+            <select id="scoringMode">
+                <option value="stableford">Stableford</option>
+                <option value="medal">Medal</option>
+            </select>
+        </div>
+
+    </div>
+
+    <!-- Date -->
+
+    <div class="date-row">
+
+        <label for="roundDate">Date</label>
+
+        <input
+            id="roundDate"
+            type="date"
+        />
+
+    </div>
+
+    <!-- Handicap Summary -->
+
+    <div class="greensomes-hcp-row">
+
+        <div class="hcp-box">
+            <span>A Course HCP</span>
+            <strong id="playerACourse">-</strong>
+        </div>
+
+        <div class="hcp-box">
+            <span>B Course HCP</span>
+            <strong id="playerBCourse">-</strong>
+        </div>
+
+        <div class="hcp-box">
+            <span>Team Playing HCP</span>
+            <strong id="teamPlaying">-</strong>
+        </div>
+
+    </div>
+
+    <div id="courseInfo" class="course-info"></div>
+
+</section>
 
                 <div id="courseInfo" class="course-info"></div>
 
