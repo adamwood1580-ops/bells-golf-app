@@ -1,2 +1,1 @@
-# bells-golf-app
-Full page
+https://adamwood1580-ops.github.io/bells-golf-app/
