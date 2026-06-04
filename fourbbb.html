@@ -11,6 +11,13 @@
 <meta name="theme-color" content="#003f24" />
 <link rel="apple-touch-icon" href="assets/Bells-logo.png" />
 </head>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+    }
+</script>
+
 <body>
     <main class="page">
         <a href="index.html" class="home-btn">← Home</a>
