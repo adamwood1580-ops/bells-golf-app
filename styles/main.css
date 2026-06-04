@@ -149,3 +149,26 @@ body {
         padding: 22px;
     }
 }
+
+.format-section {
+    margin-bottom: 28px;
+}
+
+.format-section h2 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 1rem;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+
+.menu-card h3 {
+    color: var(--green);
+    margin: 0 0 10px;
+    font-size: 1.45rem;
+}
+
+.disabled-card {
+    pointer-events: none;
+}
