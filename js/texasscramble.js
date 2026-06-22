@@ -1,45 +1,34 @@
-const STORAGE_KEY = "bells-texasscramble-round";
+const STORAGE_KEY = "bells-texas-scramble-round";
 
 const course = BELLS_COURSE;
 
 const teeSelect = document.getElementById("teeSelect");
 const scoringModeSelect = document.getElementById("scoringMode");
 const roundDateInput = document.getElementById("roundDate");
-
 const teamNameInput = document.getElementById("teamName");
+const playerCountSelect = document.getElementById("playerCount");
 
-const playerCountSelect =
-    document.getElementById("playerCount");
+const playerInputs = [
+    {
+        name: document.getElementById("player1Name"),
+        index: document.getElementById("player1Index")
+    },
+    {
+        name: document.getElementById("player2Name"),
+        index: document.getElementById("player2Index")
+    },
+    {
+        name: document.getElementById("player3Name"),
+        index: document.getElementById("player3Index")
+    },
+    {
+        name: document.getElementById("player4Name"),
+        index: document.getElementById("player4Index")
+    }
+];
 
-const player1NameInput =
-    document.getElementById("player1Name");
-
-const player2NameInput =
-    document.getElementById("player2Name");
-
-const player3NameInput =
-    document.getElementById("player3Name");
-
-const player4NameInput =
-    document.getElementById("player4Name");
-
-const player1IndexInput =
-    document.getElementById("player1Index");
-
-const player2IndexInput =
-    document.getElementById("player2Index");
-
-const player3IndexInput =
-    document.getElementById("player3Index");
-
-const player4IndexInput =
-    document.getElementById("player4Index");
-
-const manualOverride =
-    document.getElementById("manualOverride");
-
-const manualHandicap =
-    document.getElementById("manualHandicap");
+const manualOverride = document.getElementById("manualOverride");
+const manualHandicap = document.getElementById("manualHandicap");
 const teamPlayingDisplay = document.getElementById("teamPlaying");
 
 const courseInfo = document.getElementById("courseInfo");
@@ -70,8 +59,6 @@ const resetRoundBtn = document.getElementById("resetRoundBtn");
 const shareScorecardBtn = document.getElementById("shareScorecardBtn");
 
 let selectedTee = null;
-let playerACourseHandicap = 0;
-let playerBCourseHandicap = 0;
 let teamPlayingHandicap = 0;
 
 function initialiseApp() {
@@ -81,74 +68,61 @@ function initialiseApp() {
 
     teeSelect.value = savedRound?.tee || "Yellow";
     scoringModeSelect.value = savedRound?.scoringMode || "stableford";
+    playerCountSelect.value = savedRound?.playerCount || "4";
     selectedTee = course.tees[teeSelect.value];
 
+    teamNameInput.value = savedRound?.teamName || "";
     roundDateInput.value = savedRound?.roundDate || getTodayDate();
-    playerANameInput.value = savedRound?.playerAName || "";
-    playerBNameInput.value = savedRound?.playerBName || "";
-    playerAIndexInput.value = savedRound?.playerAIndex || "";
-    playerBIndexInput.value = savedRound?.playerBIndex || "";
 
+    playerInputs.forEach((player, index) => {
+        player.name.value = savedRound?.players?.[index]?.name || "";
+        player.index.value = savedRound?.players?.[index]?.index || "";
+    });
+
+    manualOverride.checked = savedRound?.manualOverride || false;
+    manualHandicap.value = savedRound?.manualHandicap || "";
+    manualHandicap.disabled = !manualOverride.checked;
+
+    updatePlayerVisibility();
     updateTeeColour();
     renderCourse();
 
-    if (savedRound?.scores) restoreScores(savedRound.scores);
-    if (savedRound?.drives) restoreDrives(savedRound.drives);
+    if (savedRound?.scores) {
+        restoreScores(savedRound.scores);
+    }
 
     updateHandicapsAndScores();
 
     teeSelect.addEventListener("change", handleTeeChange);
     scoringModeSelect.addEventListener("change", handleDetailsChange);
+    playerCountSelect.addEventListener("change", handlePlayerCountChange);
     roundDateInput.addEventListener("input", saveRound);
-    playerANameInput.addEventListener("input", saveRound);
-    playerBNameInput.addEventListener("input", saveRound);
-    playerAIndexInput.addEventListener("input", handleDetailsChange);
-    playerBIndexInput.addEventListener("input", handleDetailsChange);
+    teamNameInput.addEventListener("input", saveRound);
+
+    playerInputs.forEach(player => {
+        player.name.addEventListener("input", saveRound);
+        player.index.addEventListener("input", handleDetailsChange);
+    });
+
+    manualOverride.addEventListener("change", () => {
+        manualHandicap.disabled = !manualOverride.checked;
+        updateHandicapsAndScores();
+        saveRound();
+    });
+
+    manualHandicap.addEventListener("input", () => {
+        updateHandicapsAndScores();
+        saveRound();
+    });
 
     resetRoundBtn?.addEventListener("click", resetRound);
     shareScorecardBtn?.addEventListener("click", saveOrShareScorecard);
 }
 
-playerCountSelect.addEventListener(
-    "change",
-    () => {
-
-        updatePlayerVisibility();
-
-        updateHandicapsAndScores();
-
-        saveRound();
-
-    }
-);
-
-manualOverride.addEventListener(
-    "change",
-    () => {
-
-        manualHandicap.disabled =
-            !manualOverride.checked;
-
-        updateHandicapsAndScores();
-
-    }
-);
-
-manualHandicap.addEventListener(
-    "input",
-    updateHandicapsAndScores
-);
-updatePlayerVisibility();
-
 function populateTees() {
     Object.keys(course.tees).forEach(teeName => {
         teeSelect.add(new Option(teeName, teeName));
     });
-}
-
-function handleDetailsChange() {
-    updateHandicapsAndScores();
-    saveRound();
 }
 
 function handleTeeChange() {
@@ -158,6 +132,35 @@ function handleTeeChange() {
     renderCourse();
     updateHandicapsAndScores();
     saveRound();
+}
+
+function handleDetailsChange() {
+    updateHandicapsAndScores();
+    saveRound();
+}
+
+function handlePlayerCountChange() {
+    updatePlayerVisibility();
+    updateHandicapsAndScores();
+    saveRound();
+}
+
+function updatePlayerVisibility() {
+    const count = getPlayerCount();
+
+    [3, 4].forEach(playerNumber => {
+        const nameBlock = document.getElementById(`player${playerNumber}Block`);
+        const indexBlock = document.getElementById(`player${playerNumber}IndexBlock`);
+
+        const visible = count >= playerNumber;
+
+        if (nameBlock) nameBlock.style.display = visible ? "" : "none";
+        if (indexBlock) indexBlock.style.display = visible ? "" : "none";
+    });
+}
+
+function getPlayerCount() {
+    return parseInt(playerCountSelect.value, 10) || 4;
 }
 
 function updateTeeColour() {
@@ -179,12 +182,6 @@ function renderCourse() {
         input.addEventListener("focus", event => event.target.select());
     });
 
-    document.querySelectorAll(".drive-select").forEach(select => {
-        select.addEventListener("change", () => {
-            saveRound();
-        });
-    });
-
     outPar.textContent = selectedTee.holes.slice(0, 9).reduce((a, b) => a + b, 0);
     inPar.textContent = selectedTee.holes.slice(9).reduce((a, b) => a + b, 0);
 
@@ -192,86 +189,7 @@ function renderCourse() {
         <span>⚑ Par ${selectedTee.par}</span>
         <span>★ Course Rating ${selectedTee.rating}</span>
         <span>⌁ Slope ${selectedTee.slope}</span>
-        
-        function calculateTexasScrambleHandicap() {
-
-    const playerCount =
-        parseInt(playerCountSelect.value, 10);
-
-    const handicaps = [];
-
-    const p1 = calculateCourseHandicap(
-        player1IndexInput.value
-    );
-
-    const p2 = calculateCourseHandicap(
-        player2IndexInput.value
-    );
-
-    handicaps.push(p1, p2);
-
-    if (playerCount >= 3) {
-        handicaps.push(
-            calculateCourseHandicap(
-                player3IndexInput.value
-            )
-        );
-    }
-
-    if (playerCount >= 4) {
-        handicaps.push(
-            calculateCourseHandicap(
-                player4IndexInput.value
-            )
-        );
-    }
-
-    handicaps.sort((a, b) => a - b);
-
-    let teamHcp = 0;
-
-    if (playerCount === 2) {
-
-        teamHcp =
-            (handicaps[0] * 0.35) +
-            (handicaps[1] * 0.15);
-
-    } else if (playerCount === 3) {
-
-        teamHcp =
-            (handicaps[0] * 0.30) +
-            (handicaps[1] * 0.20) +
-            (handicaps[2] * 0.10);
-
-    } else {
-
-        teamHcp =
-            (handicaps[0] * 0.25) +
-            (handicaps[1] * 0.20) +
-            (handicaps[2] * 0.15) +
-            (handicaps[3] * 0.10);
-
-    }
-
-    return Math.round(teamHcp);
-
-}
-function getTeamHandicap() {
-
-    if (
-        manualOverride.checked &&
-        manualHandicap.value
-    ) {
-        return parseInt(
-            manualHandicap.value,
-            10
-        );
-    }
-
-    return calculateTexasScrambleHandicap();
-
-}
-        
+        <span>Texas Scramble team handicap</span>
     `;
 
     resetTotals();
@@ -288,13 +206,6 @@ function createHoleRow(index) {
         <td>${selectedTee.holes[index]}</td>
         <td class="si">${selectedTee.si[index]}</td>
         <td>
-            <select class="drive-select" data-hole="${index}">
-                <option value="">-</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-            </select>
-        </td>
-        <td>
             <input class="score-input" type="number" min="1" inputmode="numeric" data-hole="${index}" />
             <div class="shot-marker" id="shot-${index}"></div>
         </td>
@@ -306,7 +217,7 @@ function createHoleRow(index) {
 }
 
 function handleScoreInput(event) {
-    calculateGreensomes();
+    calculateTexasScramble();
     saveRound();
 
     const input = event.target;
@@ -326,27 +237,52 @@ function moveToNextScoreInput(currentInput) {
 }
 
 function updateHandicapsAndScores() {
-    updateHandicaps();
+    updateTeamHandicap();
     highlightShotHoles();
-    calculateGreensomes();
+    calculateTexasScramble();
 }
 
-function updateHandicaps() {
-    playerACourseHandicap = calculateCourseHandicap(playerAIndexInput.value);
-    playerBCourseHandicap = calculateCourseHandicap(playerBIndexInput.value);
+function updateTeamHandicap() {
+    teamPlayingHandicap = getTeamPlayingHandicap();
+    teamPlayingDisplay.textContent = teamPlayingHandicap || "-";
+}
 
-    const lower = Math.min(playerACourseHandicap || 0, playerBCourseHandicap || 0);
-    const higher = Math.max(playerACourseHandicap || 0, playerBCourseHandicap || 0);
-
-    if (!playerACourseHandicap && !playerBCourseHandicap) {
-        teamPlayingHandicap = 0;
-    } else {
-        teamPlayingHandicap = Math.round((lower * 0.6) + (higher * 0.4));
+function getTeamPlayingHandicap() {
+    if (manualOverride.checked && manualHandicap.value !== "") {
+        return Math.round(Number(manualHandicap.value));
     }
 
-    playerACourseDisplay.textContent = playerACourseHandicap || "-";
-    playerBCourseDisplay.textContent = playerBCourseHandicap || "-";
-    teamPlayingDisplay.textContent = teamPlayingHandicap || "-";
+    const count = getPlayerCount();
+
+    const courseHandicaps = playerInputs
+        .slice(0, count)
+        .map(player => calculateCourseHandicap(player.index.value))
+        .sort((a, b) => a - b);
+
+    let teamHandicap = 0;
+
+    if (count === 2) {
+        teamHandicap =
+            (courseHandicaps[0] * 0.35) +
+            (courseHandicaps[1] * 0.15);
+    }
+
+    if (count === 3) {
+        teamHandicap =
+            (courseHandicaps[0] * 0.30) +
+            (courseHandicaps[1] * 0.20) +
+            (courseHandicaps[2] * 0.10);
+    }
+
+    if (count === 4) {
+        teamHandicap =
+            (courseHandicaps[0] * 0.25) +
+            (courseHandicaps[1] * 0.20) +
+            (courseHandicaps[2] * 0.15) +
+            (courseHandicaps[3] * 0.10);
+    }
+
+    return Math.round(teamHandicap);
 }
 
 function calculateCourseHandicap(indexValue) {
@@ -372,7 +308,7 @@ function highlightShotHoles() {
     });
 }
 
-function calculateGreensomes() {
+function calculateTexasScramble() {
     const isStableford = scoringModeSelect.value === "stableford";
 
     let outGrossTotal = 0;
@@ -464,14 +400,10 @@ function resetTotals() {
 }
 
 function resetRound() {
-    if (!confirm("Clear all scores and drive selections for this round?")) return;
+    if (!confirm("Clear all scores for this round?")) return;
 
     document.querySelectorAll(".score-input").forEach(input => {
         input.value = "";
-    });
-
-    document.querySelectorAll(".drive-select").forEach(select => {
-        select.value = "";
     });
 
     document.querySelectorAll('[id^="nett-"], [id^="points-"]').forEach(cell => {
@@ -485,26 +417,24 @@ function resetRound() {
 
 function saveRound() {
     const scores = {};
-    const drives = {};
 
     document.querySelectorAll(".score-input").forEach(input => {
         scores[input.dataset.hole] = input.value;
     });
 
-    document.querySelectorAll(".drive-select").forEach(select => {
-        drives[select.dataset.hole] = select.value;
-    });
-
     const roundData = {
         tee: teeSelect.value,
         scoringMode: scoringModeSelect.value,
+        playerCount: playerCountSelect.value,
+        teamName: teamNameInput.value,
         roundDate: roundDateInput.value,
-        playerAName: playerANameInput.value,
-        playerBName: playerBNameInput.value,
-        playerAIndex: playerAIndexInput.value,
-        playerBIndex: playerBIndexInput.value,
-        scores,
-        drives
+        manualOverride: manualOverride.checked,
+        manualHandicap: manualHandicap.value,
+        players: playerInputs.map(player => ({
+            name: player.name.value,
+            index: player.index.value
+        })),
+        scores
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(roundData));
@@ -529,31 +459,26 @@ function restoreScores(scores) {
     });
 }
 
-function restoreDrives(drives) {
-    document.querySelectorAll(".drive-select").forEach(select => {
-        const hole = select.dataset.hole;
-
-        if (drives[hole]) {
-            select.value = drives[hole];
-        }
-    });
-}
-
 function buildShareCard() {
     const isStableford = scoringModeSelect.value === "stableford";
     const modeLabel = isStableford ? "Stableford" : "Medal";
 
-    document.getElementById("shareTitle").textContent = `Greensomes ${modeLabel} Scorecard`;
+    document.getElementById("shareTitle").textContent = `Texas Scramble ${modeLabel} Scorecard`;
     document.getElementById("shareDate").textContent = roundDateInput.value || "-";
     document.getElementById("shareMode").textContent = modeLabel;
     document.getElementById("shareTee").textContent = teeSelect.value || "-";
-    document.getElementById("sharePlayer1").textContent = player1NameInput.value || "Player 1";
-    document.getElementById("sharePlayer2").textContent = player2NameInput.value || "Player 2";
-    document.getElementById("sharePlayer3").textContent = player3NameInput.value || "Player 3";
-    document.getElementById("sharePlayer4").textContent = player4NameInput.value || "Player 4";
-    document.getElementById("shareTeam").textContent = teamPlayingHandicap || "-";
-
+    document.getElementById("shareTeam").textContent = teamNameInput.value || "Team";
     document.getElementById("shareTeamHcp").textContent = teamPlayingHandicap || "-";
+
+    playerInputs.forEach((player, index) => {
+        const el = document.getElementById(`sharePlayer${index + 1}`);
+        if (el) {
+            el.textContent =
+                index < getPlayerCount()
+                    ? player.name.value || `Player ${index + 1}`
+                    : "-";
+        }
+    });
 
     const frontBody = document.querySelector("#shareFront tbody");
     const backBody = document.querySelector("#shareBack tbody");
@@ -567,10 +492,7 @@ function buildShareCard() {
 
     selectedTee.holes.forEach((par, index) => {
         const grossInput = document.querySelector(`.score-input[data-hole="${index}"]`);
-        const driveSelect = document.querySelector(`.drive-select[data-hole="${index}"]`);
-
         const gross = parseInt(grossInput?.value, 10);
-        const drive = driveSelect?.value || "-";
 
         const shots = getShotsReceived(teamPlayingHandicap, selectedTee.si[index]);
         const nett = gross ? gross - shots : 0;
@@ -588,7 +510,6 @@ function buildShareCard() {
                 <td>${selectedTee.yards[index]}</td>
                 <td>${par}</td>
                 <td>${selectedTee.si[index]}</td>
-                <td>${drive}</td>
                 <td>${gross || "-"}</td>
                 <td>${gross ? nett : "-"}</td>
                 <td>${isStableford && gross ? points : "-"}</td>
@@ -636,19 +557,19 @@ async function saveOrShareScorecard() {
         canvas.toBlob(async blob => {
             if (!blob) throw new Error("Image could not be created.");
 
-            const file = new File([blob], "bells-greensomes-scorecard.png", {
+            const file = new File([blob], "bells-texas-scramble-scorecard.png", {
                 type: "image/png"
             });
 
             if (navigator.canShare?.({ files: [file] })) {
                 await navigator.share({
-                    title: "Bells Greensomes Scorecard",
-                    text: "My Greensomes scorecard",
+                    title: "Bells Texas Scramble Scorecard",
+                    text: "My Texas Scramble scorecard",
                     files: [file]
                 });
             } else {
                 const link = document.createElement("a");
-                link.download = "bells-greensomes-scorecard.png";
+                link.download = "bells-texas-scramble-scorecard.png";
                 link.href = URL.createObjectURL(blob);
                 link.click();
                 URL.revokeObjectURL(link.href);
@@ -666,36 +587,6 @@ async function saveOrShareScorecard() {
 
 function getTodayDate() {
     return new Date().toISOString().split("T")[0];
-    
-    function updatePlayerVisibility() {
-
-    const count =
-        parseInt(
-            playerCountSelect.value,
-            10
-        );
-
-    document.getElementById(
-        "player3Block"
-    ).style.display =
-        count >= 3 ? "" : "none";
-
-    document.getElementById(
-        "player3IndexBlock"
-    ).style.display =
-        count >= 3 ? "" : "none";
-
-    document.getElementById(
-        "player4Block"
-    ).style.display =
-        count >= 4 ? "" : "none";
-
-    document.getElementById(
-        "player4IndexBlock"
-    ).style.display =
-        count >= 4 ? "" : "none";
-
-}
 }
 
 initialiseApp();
