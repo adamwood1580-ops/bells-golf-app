@@ -471,14 +471,19 @@ function buildShareCard() {
     document.getElementById("shareTeamHcp").textContent = teamPlayingHandicap || "-";
 
     playerInputs.forEach((player, index) => {
-        const el = document.getElementById(`sharePlayer${index + 1}`);
-        if (el) {
-            el.textContent =
-                index < getPlayerCount()
-                    ? player.name.value || `Player ${index + 1}`
-                    : "-";
-        }
-    });
+    const wrapper = document.getElementById(`sharePlayer${index + 1}`)?.parentElement;
+    const el = document.getElementById(`sharePlayer${index + 1}`);
+
+    if (!wrapper || !el) return;
+
+    if (index < getPlayerCount()) {
+        wrapper.style.display = "";
+        el.textContent = player.name.value || `Player ${index + 1}`;
+    } else {
+        wrapper.style.display = "none";
+        el.textContent = "-";
+    }
+});
 
     const frontBody = document.querySelector("#shareFront tbody");
     const backBody = document.querySelector("#shareBack tbody");
