@@ -1,4 +1,4 @@
-const CACHE_NAME = "bells-golf-app-v5";
+const CACHE_NAME = "bells-golf-app-v6";
 
 const FILES_TO_CACHE = [
     "./",
@@ -16,6 +16,8 @@ const FILES_TO_CACHE = [
     "./js/fourbbb.js",
     "./greensomes.html",
     "./js/greensomes.js",
+    "./texasscramble.html",
+    "./js/texasscramble.js",
 
     "./assets/bells-logo.PNG",
     "./assets/course-bg.JPG",
